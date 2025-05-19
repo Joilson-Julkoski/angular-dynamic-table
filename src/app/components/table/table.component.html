@@ -1,0 +1,40 @@
+<table>
+    <thead>
+        <tr>
+            @for (col of colunas; track $index) {
+            <th>{{ col }}</th>
+            }
+
+            @if (actions) {
+            <th></th>
+
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (linha of dados; track $index) {
+
+        <tr>
+            @for (col of colunas; track $index) {
+
+            <td>
+                @if (templates[col]) {
+                <ng-container
+                    *ngTemplateOutlet="templates[col]; context: { $implicit: linha[col], linha: linha }"></ng-container>
+
+                } @else {
+                {{linha[col]}}
+                }
+            </td>
+            }
+            @if (actions) {
+            <td>
+                <div class="actions">
+                    <ng-container *ngTemplateOutlet="actions; context: {$implicit: linha}"></ng-container>
+                </div>
+            </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
